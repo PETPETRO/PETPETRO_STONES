@@ -1,6 +1,8 @@
 package core;
 
+import java.io.Serializable;
 
+public abstract class Tile implements Serializable {
 
-public abstract class Tile {
+	private static final long serialVersionUID = 1L;
 }

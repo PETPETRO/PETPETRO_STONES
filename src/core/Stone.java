@@ -2,6 +2,7 @@ package core;
 
 public class Stone extends Tile {
 
+	private static final long serialVersionUID = 1L;
 	private final int value;
 
 	public Stone(int value) {
@@ -15,7 +16,6 @@ public class Stone extends Tile {
 	@Override
 	public String toString() {
 		return this.getValue() + "";
-
 	}
 
 }

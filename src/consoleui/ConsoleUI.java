@@ -19,6 +19,7 @@ public class ConsoleUI implements UserInterface {
 
 	private Field field;
 	private GameLoader game = new GameLoader();
+	private Field loadField = game.load();
 
 	/** Input reader. */
 	private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -38,50 +39,38 @@ public class ConsoleUI implements UserInterface {
 	}
 
 	@Override
-	public void newGameStarted(Field field) {
+	public void newGameStarted(Field newField) {
+
+		if (loadField != null) {
+			setField(loadField);
+		} else {
+			setField(newField);
+		}
+		startGame(field);
+	}
+
+	public void startGame(Field field) {
+
 		BestTimes best = new BestTimes();
 		startMillis = System.currentTimeMillis();
 		System.out.println("Vitaj: " + System.getProperty("user.name"));
-		// this.field = field;
-		Field loadGame = game.load();
-		// Field newGame = this.field;
-
-		if (loadGame != null) {
-			System.out.println("Do you want to load game from file ? Y/N");
-			String input = readLine().toUpperCase();
-			do {
-				if (input == "N") {
-					this.field = field;
-				} else if (input == "Y") {
-					this.field = loadGame;
-				} else {
-					System.out.println("Do you want to load game from file ? Y/N");
-				}
-			} while (input == "N" || input == "Y");
-			this.field = loadGame;
-		} else
-			this.field = field;
 
 		do {
 			update();
 			processInput();
 			if (field.isSolved(this.field)) {
-
 				field.setState(GameState.SOLVED);
-
 			}
-
 		} while (field.getState() == GameState.PLAYING);
 
 		if (field.getState() == GameState.SOLVED) {
 			update();
 			int time = (int) ((System.currentTimeMillis() - startMillis) / 1000);
-			System.out.println("VYHRAL SI !!!!!!");
-			System.out.println("Zadaj svoje meno: ");
+			System.out.println("Congratulations !");
+			System.out.println("Enter your name: ");
 			String meno = readLine().toString();
 			best.addPlayerTime(meno, time);
 		}
-
 	}
 
 	private void processInput() {
@@ -140,14 +129,14 @@ public class ConsoleUI implements UserInterface {
 				throw new MyException("Neda sa");
 			}
 		} else if (input.trim().equals("X") || input.trim().equals("EXIT")) {
-			System.err.println("Ukoncil si hru");
+			System.err.println("Game exit");
 			game.save(this.field);
 			System.exit(0);
 		} else if (input.trim().equals("N") || input.trim().equals("NEW")) {
-			Stones.setInstance(null);
-			Stones.main(null);
+			setField(new Field(field.getRowCount(), field.getColumnCount()));
+			startGame(field);
 		} else {
-			throw new MyException("Nespravny vstup");
+			throw new MyException("Incoret input!");
 		}
 	}
 
@@ -185,6 +174,14 @@ public class ConsoleUI implements UserInterface {
 				"\nn (new)   – new game \nx (exit)  – exit game   \nw (up)    – move stone up \ns (down)  – move stone down \na (left)  – move stone left \nd (right) – move stone right");
 		System.out.println("\nPLAYING TIME:" + Stones.getInstance().getPlayingSeconds());
 
+	}
+
+	public Field getField() {
+		return field;
+	}
+
+	public void setField(Field field) {
+		this.field = field;
 	}
 
 }

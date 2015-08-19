@@ -19,7 +19,6 @@ public class GameLoader {
 		File file = new File(GAME_FILE);
 		try (FileOutputStream out = new FileOutputStream(file); ObjectOutputStream s = new ObjectOutputStream(out)) {
 			s.writeObject(field);
-			System.out.println("Zapisane");
 		} catch (Exception e) {
 			e = new Exception("Nieje mozne ulozit subor");
 			e.printStackTrace();

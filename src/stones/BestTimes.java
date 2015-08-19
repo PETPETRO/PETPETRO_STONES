@@ -35,9 +35,6 @@ public class BestTimes implements Iterable<BestTimes.PlayerTime> {
 	 *            player time in seconds
 	 */
 	public void addPlayerTime(String name, int time) {
-		// PlayerTime player = new PlayerTime(name, time);
-		// playerTimes.add(player);
-		// Collections.sort(playerTimes);
 		insertToDB(new PlayerTime(name, time));
 	}
 
@@ -106,7 +103,6 @@ public class BestTimes implements Iterable<BestTimes.PlayerTime> {
 		} catch (Exception e) {
 			System.out.println("Exception occured during saving high score to database: " + e.getMessage());
 		}
-
 	}
 
 	/**
@@ -155,8 +151,6 @@ public class BestTimes implements Iterable<BestTimes.PlayerTime> {
 			} else {
 				throw new NullPointerException("Compared object is null !");
 			}
-
 		}
-
 	}
 }

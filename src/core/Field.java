@@ -1,10 +1,16 @@
 package core;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import consoleui.MyException;
 
-public class Field {
+public class Field implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Tile[][] tiles;
 
 	private final int rowCount;
