@@ -12,7 +12,6 @@ public class Stones implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static Stones instance;
 	private long startMillis;
 
 	private UserInterface userInterface;
@@ -20,10 +19,8 @@ public class Stones implements Serializable {
 
 	private Stones() throws ClassNotFoundException, IOException {
 		bestTimes = new BestTimes();
-		instance = this;
 		userInterface = new ConsoleUI();
 		Field field = new Field(3, 3);
-		startMillis = System.currentTimeMillis();
 		System.out.println(bestTimes.toString());
 		userInterface.newGameStarted(field);
 		System.out.println(bestTimes.toString());
@@ -31,14 +28,7 @@ public class Stones implements Serializable {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		new Stones();
-	}
 
-	public static Stones getInstance() {
-		return instance;
-	}
-
-	public static void setInstance(Stones instance) {
-		Stones.instance = instance;
 	}
 
 	public int getPlayingSeconds() {

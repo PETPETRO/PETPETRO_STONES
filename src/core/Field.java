@@ -34,7 +34,7 @@ public class Field implements Serializable {
 		generate();
 	}
 
-	private void generate() {
+	public void generate() {
 
 		for (int c = 0; c < 1; c++) {
 			int row = new Random().nextInt(rowCount);
@@ -50,13 +50,44 @@ public class Field implements Serializable {
 			}
 		}
 
-		for (int r = 0; r < rowCount; r++) {
-			for (int c = 0; c < columnCount - 1; c++) {
-				int row = new Random().nextInt(rowCount);
-				int column = new Random().nextInt(columnCount);
-				Tile tile = tiles[row][column];
-				tiles[row][column] = tiles[r][c];
-				tiles[r][c] = tile;
+		shuffleStones();
+
+	}
+
+	public void shuffleStones() {
+		int count = rowCount * columnCount * 100;
+		for (int i = 0; i < count; i++) {
+			for (int r = 0; r < rowCount; r++) {
+				for (int c = 0; c < columnCount; c++) {
+					if (tiles[r][c] instanceof Clue) {
+
+						int move = new Random().nextInt(5);
+						switch (move) {
+						case 1:
+							if (r != 0) {
+								moveDown(r, c);
+								break;
+							}
+						case 2:
+							if (r != rowCount - 1) {
+								moveUp(r, c);
+								break;
+							}
+						case 3:
+							if (c != columnCount - 1) {
+								moveLeft(r, c);
+								break;
+							}
+						case 4:
+							if (c != 0) {
+								moveRight(r, c);
+								break;
+							}
+						default:
+							break;
+						}
+					}
+				}
 			}
 		}
 	}

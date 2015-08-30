@@ -12,7 +12,6 @@ import core.Field;
 import core.GameState;
 import stones.BestTimes;
 import stones.GameLoader;
-import stones.Stones;
 import stones.UserInterface;
 
 public class ConsoleUI implements UserInterface {
@@ -133,8 +132,8 @@ public class ConsoleUI implements UserInterface {
 			game.save(this.field);
 			System.exit(0);
 		} else if (input.trim().equals("N") || input.trim().equals("NEW")) {
-			setField(new Field(field.getRowCount(), field.getColumnCount()));
-			startGame(field);
+			field.shuffleStones();
+			startMillis = System.currentTimeMillis();
 		} else {
 			throw new MyException("Incoret input!");
 		}
@@ -172,7 +171,7 @@ public class ConsoleUI implements UserInterface {
 		formatter.close();
 		System.out.println(
 				"\nn (new)   – new game \nx (exit)  – exit game   \nw (up)    – move stone up \ns (down)  – move stone down \na (left)  – move stone left \nd (right) – move stone right");
-		System.out.println("\nPLAYING TIME:" + Stones.getInstance().getPlayingSeconds());
+		System.out.println("\nPLAYING TIME:" + (System.currentTimeMillis() - startMillis) / 1000);
 
 	}
 
