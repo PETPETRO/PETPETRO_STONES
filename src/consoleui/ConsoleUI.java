@@ -37,6 +37,9 @@ public class ConsoleUI implements UserInterface {
 		}
 	}
 
+	/**
+	 * Load game from file if exist.
+	 */
 	@Override
 	public void newGameStarted(Field newField) {
 
@@ -48,6 +51,11 @@ public class ConsoleUI implements UserInterface {
 		startGame(field);
 	}
 
+	/**
+	 * Start new game
+	 * 
+	 * @param field
+	 */
 	public void startGame(Field field) {
 
 		BestTimes best = new BestTimes();
@@ -72,6 +80,9 @@ public class ConsoleUI implements UserInterface {
 		}
 	}
 
+	/**
+	 * Read and process input
+	 */
 	private void processInput() {
 		String input = readLine();
 		try {
@@ -82,6 +93,14 @@ public class ConsoleUI implements UserInterface {
 		}
 	}
 
+	/**
+	 * Handle input
+	 * 
+	 * @param input
+	 * @throws MyException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	void handleInput(String input) throws MyException, ClassNotFoundException, IOException {
 		input = input.toUpperCase();
 		Pattern p = Pattern.compile("W|S|D|A|UP|DOWN|RIGHT|LEFT");
@@ -139,6 +158,9 @@ public class ConsoleUI implements UserInterface {
 		}
 	}
 
+	/**
+	 * Update game field
+	 */
 	@Override
 	public void update() {
 		int rowCount = field.getRowCount();
@@ -175,10 +197,20 @@ public class ConsoleUI implements UserInterface {
 
 	}
 
+	/**
+	 * Return field, type Field
+	 * 
+	 * @return field
+	 */
 	public Field getField() {
 		return field;
 	}
 
+	/**
+	 * Set field
+	 * 
+	 * @param field
+	 */
 	public void setField(Field field) {
 		this.field = field;
 	}

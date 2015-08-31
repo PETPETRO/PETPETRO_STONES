@@ -18,6 +18,12 @@ public class Field implements Serializable {
 	private final int columnCount;
 	private GameState state = GameState.PLAYING;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param rowCount
+	 * @param columnCount
+	 */
 	public Field(int rowCount, int columnCount) {
 
 		if (rowCount < 1) {
@@ -34,6 +40,9 @@ public class Field implements Serializable {
 		generate();
 	}
 
+	/**
+	 * Generate new field
+	 */
 	public void generate() {
 
 		for (int c = 0; c < 1; c++) {
@@ -54,6 +63,9 @@ public class Field implements Serializable {
 
 	}
 
+	/**
+	 * Shuffle stones in game field
+	 */
 	public void shuffleStones() {
 		int count = rowCount * columnCount * 100;
 		for (int i = 0; i < count; i++) {
@@ -92,6 +104,12 @@ public class Field implements Serializable {
 		}
 	}
 
+	/**
+	 * Move stone in field to the left
+	 * 
+	 * @param row
+	 * @param column
+	 */
 	public void moveLeft(int row, int column) {
 		try {
 			Tile tile = tiles[row][column];
@@ -103,6 +121,12 @@ public class Field implements Serializable {
 		}
 	}
 
+	/**
+	 * Move stone in field to the right
+	 * 
+	 * @param row
+	 * @param column
+	 */
 	public void moveRight(int row, int column) {
 		try {
 			Tile tile = tiles[row][column];
@@ -114,6 +138,12 @@ public class Field implements Serializable {
 		}
 	}
 
+	/**
+	 * Move stone in field up
+	 * 
+	 * @param row
+	 * @param column
+	 */
 	public void moveUp(int row, int column) {
 		try {
 			Tile tile = tiles[row][column];
@@ -125,6 +155,12 @@ public class Field implements Serializable {
 		}
 	}
 
+	/**
+	 * Move stone in field down
+	 * 
+	 * @param row
+	 * @param column
+	 */
 	public void moveDown(int row, int column) {
 		try {
 			Tile tile = tiles[row][column];
@@ -136,6 +172,12 @@ public class Field implements Serializable {
 		}
 	}
 
+	/**
+	 * Check if game is solved
+	 * 
+	 * @param field
+	 * @return true if game is solved, false otherwise
+	 */
 	public boolean isSolved(Field field) {
 		for (int r = 0; r < rowCount; r++) {
 			for (int c = 0; c < (columnCount); c++) {
@@ -149,22 +191,49 @@ public class Field implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Get state of game
+	 * 
+	 * @return GameState
+	 */
 	public GameState getState() {
 		return state;
 	}
 
+	/**
+	 * Set state of game
+	 * 
+	 * @param state
+	 */
 	public void setState(GameState state) {
 		this.state = state;
 	}
 
+	/**
+	 * Get tile on row and column form field
+	 * 
+	 * @param row
+	 * @param column
+	 * @return
+	 */
 	public Tile getTile(int row, int column) {
 		return tiles[row][column];
 	}
 
+	/**
+	 * Get count of rows in field
+	 * 
+	 * @return count of rows
+	 */
 	public int getRowCount() {
 		return rowCount;
 	}
 
+	/**
+	 * Get count of columns in field
+	 * 
+	 * @return count of columns
+	 */
 	public int getColumnCount() {
 		return columnCount;
 	}
